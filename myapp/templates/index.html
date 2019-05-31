@@ -1,0 +1,48 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <title>Index</title>  
+</head>  
+<body>  
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            roll number
+        </th>
+        <th>
+            admission number
+        </th>
+        <th>
+            email
+        </th>
+        <th>
+            admission year
+        </th>
+    </tr>
+    {%for i in name%}
+    <tr>
+        <td>
+            {{i.name}}
+        </td>
+        <td>
+            {{i.rolln}}
+        </td>
+        <td>
+            {{i.admissionn}}
+        </td>
+        <td>
+            {{i.email}}
+        </td>
+        <td>
+            {{i.admission_year}}
+        </td>
+        
+    </tr>
+    {% endfor %}
+</table>
+</body>  
+</html>  
