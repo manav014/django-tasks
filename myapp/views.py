@@ -3,9 +3,13 @@ from django.shortcuts import render
 from django.template import loader  
 # Create your views here.  
 from django.http import HttpResponse  
+from django.core.files.storage import FileSystemStorage
+from django.template.loader import render_to_string
 from .models import student
+from weasyprint import HTML
 import csv
 from reportlab.pdfgen import canvas 
+
 def index(request):  
     template = loader.get_template('index.html') # getting our template  
     name=student.objects.order_by('admission_year')
@@ -33,21 +37,18 @@ def excel(request):
     return response 
 
 def pdf(request):
-    response = HttpResponse(content_type='application/pdf')  
-    response['Content-Disposition'] = 'attachment; filename="file.pdf"'  
-    p = canvas.Canvas(response)  
-    p.setFont("Times-Roman", 55)  
     name=student.objects.order_by('admission_year')
-    k=0
-    for i in name :
-        p.drawString(k,0,i.name)  
-        #p.drawString(k,10,i.rolln)  
-        p.drawString(k,20,i.admissionn)  
-        p.drawString(k,30,i.email)  
-        #p.drawString(k,40,i.admission_year)  
-        
-        
-    p.showPage()  
-    p.save()  
-    return response  
+    name1 ={
+        'name' : name,
+    }
+    html_string = render_to_string('index.html', name1)
+    html = HTML(string=html_string)
+    html.write_pdf(target='/tmp/mypdf.pdf')
+    fs = FileSystemStorage('/tmp')
+    with fs.open('mypdf.pdf') as pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"'
+        return response
+
+    return response
 
