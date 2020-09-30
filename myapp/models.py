@@ -13,3 +13,9 @@ class teacher(model.Model):
     rolln=models.IntegerField()
     email=models.EmailField(max_length=254)
     admission_year=models.IntegerField()
+
+class coordinator(model.Model):
+    name=models.CharField(max_length=300)
+    rolln=models.IntegerField()
+    email=models.EmailField(max_length=254)
+    admission_year=models.IntegerField()
