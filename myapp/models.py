@@ -19,3 +19,9 @@ class coordinator(model.Model):
     rolln=models.IntegerField()
     email=models.EmailField(max_length=254)
     admission_year=models.IntegerField()
+
+class Principal(model.Model):
+     name=models.CharField(max_length=300)
+     Empid=models.IntegerField()
+     email=models.EmailField(max_length=254)
+      joining_year=models.IntegerField()
